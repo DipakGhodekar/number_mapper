@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+# chmod +x bin/console
+
+require 'irb'
+require_relative '../lib/number_mapper'
+
+IRB.start
