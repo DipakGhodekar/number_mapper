@@ -10,8 +10,12 @@ class NumberMapper
   end
 
   def search_word_combinations
-    search_words(number)
-    word_combinations
+    if valid_number?
+      search_words(number)
+      word_combinations
+    else
+      errors[:number]
+    end
   end
 
   def word_exists?(word)
@@ -20,6 +24,18 @@ class NumberMapper
       dictionary_word >= word
     end
     searched_word == word
+  end
+
+  def valid_number?
+    error_message = if number.empty?
+                      'Number should not be blank.'
+                    elsif !(/^\d*$/ =~ number)
+                      'Number should contain only Digits.'
+                    elsif !only_allowed_digits_included?
+                      "Number should contain Digits(#{allowed_digits.join(', ')}) mapped with Alphabets."
+                    end
+    errors[:number] = error_message unless error_message.nil?
+    errors.empty?
   end
 
   private
@@ -49,5 +65,13 @@ class NumberMapper
 
   def dictionary_words
     @dictionary_words ||= File.readlines('lib/dictionary.txt').map(&:strip)
+  end
+
+  def only_allowed_digits_included?
+    (number.chars.map(&:to_i) - allowed_digits).empty?
+  end
+
+  def allowed_digits
+    digit_mapping.keys
   end
 end
