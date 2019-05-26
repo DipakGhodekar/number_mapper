@@ -1,11 +1,16 @@
 require 'yaml'
 
 class NumberMapper
-  attr_accessor :word_combinations
+  attr_accessor :word_combinations, :errors, :number
 
-  def search_word_combinations(number)
+  def initialize(attrs = {})
+    self.errors = {}
     self.word_combinations = []
-    search_words(number.to_s)
+    self.number = attrs[:number].to_s
+  end
+
+  def search_word_combinations
+    search_words(number)
     word_combinations
   end
 
@@ -19,21 +24,21 @@ class NumberMapper
 
   private
 
-  def search_words(number, words = '')
-    digit = number[0].to_i
-    number = number[1..-1]
+  def search_words(number_section, words = '')
+    digit = number_section[0].to_i
+    number_section = number_section[1..-1]
     digit_mapping[digit].each do |char|
       new_words = words + char
       last_word = new_words.split(',').last
       if (last_word.length > 2) && word_exists?(last_word)
-        if number.empty?
+        if number_section.empty?
           word_combinations << new_words
         else
-          search_words(number, new_words) unless number.empty?
+          search_words(number_section, new_words) unless number_section.empty?
           new_words += ','
         end
       end
-      search_words(number, new_words) unless number.empty?
+      search_words(number_section, new_words) unless number_section.empty?
     end
   end
 
