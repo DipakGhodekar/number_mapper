@@ -21,17 +21,26 @@ Word can be retrived as follows from number.
     D = 3
 ```
 
+
+
 ## Basic Usage
 
 1. Run bundle install
 ```
 bundle install
 ```
-2. Start Ruby Console
+2. Execute programme as terminal command
+```
+bundle exec ruby number_to_word_combinations.rb 6686787825
+```
+This will give possible combinations of words with benchmark.
+3. Execute programme from console, use following steps
+4. Start Ruby Console
 ```
 bin/console
+
 ```
-3. Create instance of NumberMapper with number parameter.
+5. Create instance of NumberMapper with number parameter.
 Call instance method ```NumberMapper#search_word_combinations``` on this instance.
 This will give all possible combinations of words for the given number.
 ```
