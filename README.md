@@ -97,7 +97,7 @@ This will give all possible combinations of words for the given number.
 
 ## Digit to Alphabet Mapping
 
-Each digit is mapped with set of Alphabets. This mapping can be override by changing combination in digit_mapping.ym file.
+Each digit is mapped with set of Alphabets. This mapping can be override by changing constant NumberMapper::DIGIT_MAPPING.
 
 #### Default Mapping
 
