@@ -29,13 +29,15 @@ Word can be retrived as follows from number.
 ```
 bundle install
 ```
-2. Execute programme as terminal command
+2. Execute programme as terminal command.
 ```
 bundle exec ruby number_to_word_combinations.rb 6686787825
 ```
 This will give possible combinations of words with benchmark.
-3. Execute programme from console, use following steps
-4. Start Ruby Console
+
+3. Execute programme from console, use following steps,
+
+4. Start Ruby Console.
 ```
 bin/console
 
