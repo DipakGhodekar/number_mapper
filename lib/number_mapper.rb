@@ -1,6 +1,17 @@
 require 'yaml'
 
 class NumberMapper
+  DIGIT_MAPPING = {
+    2 => %w[A B C],
+    3 => %w[D E F],
+    4 => %w[G H I],
+    5 => %w[J K L],
+    6 => %w[M N O],
+    7 => %w[P Q R S],
+    8 => %w[T U V],
+    9 => %w[W X Y Z]
+  }.freeze
+
   attr_accessor :word_combinations, :errors, :number
 
   def initialize(attrs = {})
@@ -43,7 +54,7 @@ class NumberMapper
   def search_words(number_section, words = '')
     digit = number_section[0].to_i
     number_section = number_section[1..-1]
-    digit_mapping[digit].each do |char|
+    DIGIT_MAPPING[digit].each do |char|
       new_words = words + char
       last_word = new_words.split(',').last
       if (last_word.length > 2) && word_exists?(last_word)
@@ -58,11 +69,6 @@ class NumberMapper
     end
   end
 
-  # Maping of number with letters
-  def digit_mapping
-    @digit_mapping ||= YAML.safe_load(File.read("#{__dir__}/digit_mapping.yml"))
-  end
-
   def dictionary_words
     @dictionary_words ||= File.readlines('lib/dictionary.txt').map(&:strip)
   end
@@ -72,6 +78,6 @@ class NumberMapper
   end
 
   def allowed_digits
-    digit_mapping.keys
+    DIGIT_MAPPING.keys
   end
 end
